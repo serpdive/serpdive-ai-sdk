@@ -1,11 +1,22 @@
 import { tool } from "ai";
 import { z } from "zod";
 import { SerpDive } from "serpdive";
-import type { SerpDiveClientOptions, SearchModel, SearchResponse } from "serpdive";
+import type { SerpDiveClientOptions, SearchResponse } from "serpdive";
+
+/**
+ * The models this tool exposes.
+ *
+ * Declared here rather than imported as `SearchModel` from `serpdive`: the API
+ * serves three models, but the published SDK's type still lists two, so
+ * importing it would make `krill` — the free tier — a type error while being
+ * perfectly valid at runtime. This local union is the honest surface; it
+ * collapses back into the imported type once a serpdive release ships krill.
+ */
+export type SerpdiveToolModel = "krill" | "mako" | "moby";
 
 export interface SerpdiveSearchOptions extends SerpDiveClientOptions {
   /** Default retrieval depth when the model does not pick one: "mako" (fast, key sentences), "krill" (free and unlimited under fair use, smallest payload) or "moby" (full pages). */
-  model?: SearchModel;
+  model?: SerpdiveToolModel;
   /** Also return a written answer built from the sources. Included in the price. */
   answer?: boolean;
   /** Hard cap on delivered results (1-10). */
@@ -39,7 +50,9 @@ export const serpdiveSearch = (options: SerpdiveSearchOptions = {}) => {
     inputSchema,
     execute: async ({ query, model: inputModel }): Promise<SearchResponse> => {
       return await client.search(query, {
-        model: inputModel ?? model,
+        // Cast for the same reason as SerpdiveToolModel above: valid at
+        // runtime, unknown to the published types.
+        model: (inputModel ?? model) as never,
         ...(answer !== undefined && { answer }),
         ...(maxResults !== undefined && { maxResults }),
       });
