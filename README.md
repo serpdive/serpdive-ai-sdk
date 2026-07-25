@@ -2,6 +2,8 @@
 
 [SERPdive](https://serpdive.com) web search tool for the [Vercel AI SDK](https://ai-sdk.dev). One tool call returns extracted, answer-ready page content per source — not links or snippets — so your agent can quote and cite facts straight from the response.
 
+**There is a free tier, and it has no ceiling.** The `krill` model is free and unlimited under fair use — no card, no credits, nothing to decrement. It returns the shortest set of sentences that still answers (about 700 tokens a search, roughly half what the usual alternatives send), one request at a time, at low priority. Use it to build; switch one word to `mako` when you need depth and steady latency.
+
 Same speed as Tavily with **20.2% fewer tokens** (1,001 vs 1,255 per query on average) and higher answer quality — **60.7% of decided duels won** against Tavily's default search on a [public, replayable 1,000-question benchmark](https://github.com/edendalexis/serpdive-benchmark). Free tier, no card.
 
 ## Install

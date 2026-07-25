@@ -4,7 +4,7 @@ import { SerpDive } from "serpdive";
 import type { SerpDiveClientOptions, SearchModel, SearchResponse } from "serpdive";
 
 export interface SerpdiveSearchOptions extends SerpDiveClientOptions {
-  /** Default retrieval depth when the model does not pick one: "mako" (fast, key sentences) or "moby" (full pages). */
+  /** Default retrieval depth when the model does not pick one: "mako" (fast, key sentences), "krill" (free and unlimited under fair use, smallest payload) or "moby" (full pages). */
   model?: SearchModel;
   /** Also return a written answer built from the sources. Included in the price. */
   answer?: boolean;
@@ -27,10 +27,10 @@ export const serpdiveSearch = (options: SerpdiveSearchOptions = {}) => {
         "The search query, phrased like a real web search, in any language (localization is automatic)",
       ),
     model: z
-      .enum(["mako", "moby"])
+      .enum(["krill", "mako", "moby"])
       .optional()
       .describe(
-        "Retrieval depth: 'mako' (default) returns the fact-carrying sentences of each source, fast and concise; 'moby' returns full page content — slower and several times more tokens, only for deep reading",
+        "Retrieval depth: 'mako' (default) returns the fact-carrying sentences of each source, fast and concise; 'krill' is the free tier — unlimited under fair use, the smallest useful payload, one request at a time at low priority, no written answer; 'moby' returns full page content — slower and several times more tokens, only for deep reading",
       ),
   });
   return tool({
