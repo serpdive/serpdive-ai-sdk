@@ -1,7 +1,7 @@
 {
   "name": "@serpdive/ai-sdk",
-  "version": "0.1.0",
-  "description": "SERPdive web search tool for the Vercel AI SDK: real-time search returning extracted, answer-ready page content — 20.2% fewer tokens than Tavily at the same speed, 60.7% of decided quality duels won on a public benchmark",
+  "version": "0.2.0",
+  "description": "SERPdive web search tool for the Vercel AI SDK: real-time search returning extracted, answer-ready page content \u2014 20.2% fewer tokens than Tavily at the same speed, 60.7% of decided quality duels won on a public benchmark",
   "license": "MIT",
   "homepage": "https://serpdive.com",
   "repository": {
